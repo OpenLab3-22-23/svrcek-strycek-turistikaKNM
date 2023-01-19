@@ -1,0 +1,1 @@
+# svrcek-strycek-turistikaKNM
