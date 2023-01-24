@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "./Auth";
+import './SignUp.css';
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -22,6 +23,7 @@ export default function SignUp() {
   return !session ? (
     <div className="w-screen h-screen flex flex-col justify-center">
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
+        <h2>Sign Up</h2>
         <input
           id="email"
           type="email"
@@ -38,11 +40,9 @@ export default function SignUp() {
           onChange={(e) => setPassword(e.target.value)}
           className="w-64 my-2"
         />
-        <input
-          type="submit"
-          value="Sign Up"
-          className="w-64 rounded-full bg-sky-500/50 px-2 py-1 my-4"
-        />
+        <div className="frame">
+          <button className="custom-btn btn-5"><span>Sign Up</span></button>
+        </div>
         <p className="mt-5">
           Already have an account?{" "}
           <Link to="/login" className="text-emerald-300">
