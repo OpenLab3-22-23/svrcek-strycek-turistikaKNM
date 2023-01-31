@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "./Auth";
-import "./SignUp.css";
+import "./LogSign.css";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -21,35 +21,38 @@ export default function SignUp() {
   }
 
   return !session ? (
-    <div className="w-screen h-screen flex flex-col justify-center">
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+    <div className="all" id="SignUp-background">
+      <form onSubmit={handleSubmit} className="form">
+        <div className="frame">
+          <h2 className="signup-text">
+            Sign Up
+          </h2>
         <input
           id="email"
           type="email"
-          placeholder="Your Email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-64 my-2"
+          className="input3"
         />
         <input
           id="password"
           type="password"
-          placeholder="Your password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-64 my-2"
+          className="input4"
         />
-        <input
-          type="submit"
-          value="Sign Up"
-          className="w-64 rounded-full bg-sky-500/50 px-2 py-1 my-4"
-        />
-        <p className="mt-5">
+        <button className="btn" id="signup-btn">
+            <span>Sign Up</span>
+        </button>
+        <p className="text">
           Already have an account?{" "}
-          <Link to="/login" className="text-emerald-300">
+          <Link to="/login" className="text-Login">
             LogIn
           </Link>
         </p>
+        </div>
       </form>
     </div>
   ) : (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "./Auth";
-import "./Login.css";
+import "./LogSign.css";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ export default function LogIn() {
     <div className="all" id="Login-background">
       <form onSubmit={handleLogIn} className="form">
         <div className="frame">
-          <h2>
+          <h2 className="login-text">
             Login
           </h2>
           <input
@@ -43,10 +43,10 @@ export default function LogIn() {
             onChange={(e) => setPassword(e.target.value)}
             className="input2"
           />
-          <button className="btn">
+          <button className="btn" id="login-btn">
             <span>Login</span>
           </button>
-          <p className="bottom-text">
+          <p className="text">
             Don't have an account?{" "}
             <Link to="/signup" className="text-SignUp">
               Sign Up

@@ -1,12 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz@1,8..144&display=swap');
+
 .all {
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: 100vw;
     height: 100vh;
-    background: url(/public/autumn.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#Login-background {
+    background: url(/public/autumn.jpg);
+}
+
+#SignUp-background {
+    background: url(/public/Spring.jpg);
 }
 
 .form {
@@ -30,34 +39,57 @@
 /* nadpis */
 
 h2 {
-    color: rgba(255,27,0,1);
     font-family: 'Lato', sans-serif;
-    font-weight: 500;
     font-size: 40px;
     margin: 0;
     cursor: default;
     font-weight: 700;
 }
 
+.login-text {
+    color: rgba(255,27,0,1);
+}
+
+.signup-text {
+    color: rgba(51,204,255,1);
+}
+
 /* form */
 
-.input1, .input2{
+.input1, .input2, .input3, .input4{
     margin-top: 20px;
     width: 14vw;
     min-width: 190px;
     height: 30px;
     border: 2px solid transparent;
     padding-left: 15px;
+}
+
+.input1, .input2 {
     border: 2px solid rgba(255,27,0,1);
+}
+
+.input3, .input4 {
+    border: 2px solid rgba(51,204,255,1);
 }
 
 .input2 {
     margin-top: 10px;
 }
 
-.input1:focus, .input2:focus {
-    outline-color: rgba(255,27,0,1);
+.input4 {
+    margin-top: 10px;
 }
+
+.input1:focus, .input2:focus {
+    outline-color: #f0094a;
+}
+
+.input3:focus, .input4:focus {
+    outline-color: #0066cc;
+}
+
+
 
 /* button */
 
@@ -72,7 +104,6 @@ h2 {
  padding: 0;
  border: none;
  color: #fff;
- background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
  transition: all 0.3s ease;
  position: relative;
  display: inline-block;
@@ -82,45 +113,76 @@ h2 {
  outline: none;
  cursor: pointer;
 }
-.btn:hover {
- color: #f0094a;
- background: transparent;
- box-shadow:none;
- font-size: 17px;
+
+#login-btn {
+    background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
 }
+
+#signup-btn {
+    background: linear-gradient(0deg, rgba(51,204,255,1) 0%, rgba(102,204,255,1) 100%);
+}
+
+#login-btn:hover {
+    background: transparent;
+    color: #f0094a;
+    box-shadow:none;
+    font-size: 17px;
+}
+
+#signup-btn:hover {
+    background: transparent;
+    color: #0066cc;
+    box-shadow:none;
+    font-size: 17px;
+}
+
 .btn:before,
-.btn:after{
+.btn:after {
  content:'';
  position:absolute;
  top:0;
  right:0;
  height:2px;
  width:0;
- background: #f0094a;
  box-shadow:
  -1px -1px 5px 0px #fff,
  7px 7px 20px 0px #0003,
  4px 4px 5px 0px #0002;
  transition:400ms ease all;
 }
-.btn:after{
+
+#signup-btn::after, #signup-btn::before {
+    background: #0066cc;
+}
+
+#login-btn::after, #login-btn::before {
+    background: #f0094a;
+}
+
+.btn:after {
  right:inherit;
  top:inherit;
  left:0;
  bottom:0;
 }
 .btn:hover:before,
-.btn:hover:after{
+.btn:hover:after {
  width:100%;
  transition:600ms ease all;
 }
 
+
 /* SignUp */
 
-.bottom-text {
+.text {
     margin-top: 15px;
     cursor: default;
+    font-family: 'Roboto Serif', serif;
+    font-size: 14px;
 }
 .text-SignUp {
     color: rgba(255,27,0,1);
+}
+.text-Login {
+    color: rgba(51,204,255,1);
 }
