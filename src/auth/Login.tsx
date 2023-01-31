@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "./Auth";
+import "./Login.css";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
@@ -20,35 +21,38 @@ export default function LogIn() {
   }
 
   return !session ? (
-    <div className="w-screen h-screen flex flex-col justify-center">
-      <form onSubmit={handleLogIn} className="flex flex-col items-center">
-        <input
-          id="email"
-          type="email"
-          placeholder="Your Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-64 my-2"
-        />
-        <input
-          id="password"
-          type="password"
-          placeholder="Your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-64 my-2"
-        />
-        <input
-          type="submit"
-          value="Log In"
-          className="w-64 rounded-full bg-sky-500/50 px-2 py-1 my-4"
-        />
-        <p className="mt-5">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-emerald-300">
-            Sign Up
-          </Link>
-        </p>
+    <div className="all" id="Login-background">
+      <form onSubmit={handleLogIn} className="form">
+        <div className="frame">
+          <h2>
+            Login
+          </h2>
+          <input
+            id="email"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="input1"
+          />
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="input2"
+          />
+          <button className="btn">
+            <span>Login</span>
+          </button>
+          <p className="bottom-text">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-SignUp">
+              Sign Up
+            </Link>
+          </p>
+        </div>
       </form>
     </div>
   ) : (
