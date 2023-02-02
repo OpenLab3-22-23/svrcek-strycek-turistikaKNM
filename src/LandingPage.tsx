@@ -1,6 +1,6 @@
 import openlab from "./assets/openlab.svg";
 import { useAuth } from "./auth/Auth";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 export default function LandingPage(): JSX.Element {
@@ -15,12 +15,10 @@ export default function LandingPage(): JSX.Element {
         <>
             <img src={openlab} alt="Logo OpenLab" className="w-80"/>
             <button onClick={handleLogOut}>Odhlásiť sa</button>
-            <Router>
+               <Link to="/account">
+                    Account
+               </Link>
                 <Navbar />
-                <Switch>
-                    <Route path='/' />
-                </Switch>
-            </Router>
         </>
     )
 }
