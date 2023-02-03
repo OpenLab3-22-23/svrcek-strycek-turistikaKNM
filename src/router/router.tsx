@@ -3,7 +3,6 @@ import App from "../App";
 import LogIn from "../auth/Login";
 import SignUp from "../auth/SignUp";
 import Account from "../pages/Account";
-import Home from "../pages/Home";
 import MyHikes from "../pages/MyHikes";
 import Villages from "../pages/Villages";
 
@@ -23,10 +22,6 @@ export const router = createBrowserRouter([
   {
     path: "/account",
     element: <Account />,
-  },
-  {
-    path: "/home",
-    element: <Home />,
   },
   {
     path: "/myhikes",

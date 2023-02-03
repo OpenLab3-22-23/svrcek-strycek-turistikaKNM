@@ -1,8 +1,12 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
 
 function Villages() {
   return (
-    <div>Villages</div>
+    <>
+      <Navbar />
+      <h2>Villages</h2>
+    </>
   )
 }
 

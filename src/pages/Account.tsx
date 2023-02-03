@@ -1,11 +1,11 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
 
 function Account() {
   return (
     <>
-        <p>
-            Account
-        </p>
+      <Navbar />
+      <h2>Account</h2>
     </>
   )
 }
