@@ -12,24 +12,25 @@ function Navbar() {
     
     const {signOut} = useAuth()
 
-    function handleLogOut(): void {
+    function handleLogOut(e): void {
+        e.preventDefault();
         signOut();
     }
     
     const [sidebar, setSidebar] = useState(false);
 
-    const showSidebar = () => setSidebar(!sidebar);
+    const toggleSidebar = () => setSidebar(!sidebar);
 
     return (
     <>
     <IconContext.Provider value={{color: '#fff'}}>
         <div className='navbar'>
             <Link to="#" className="menu-bars">
-                <FaIcons.FaBars onClick={showSidebar}/>
+                <FaIcons.FaBars onClick={toggleSidebar}/>
             </Link>
         </div>
         <nav className={sidebar ? 'nav-menu' : 'nav-menu-closed'}> 
-            <ul className='nav-menu-items' onClick={showSidebar}>
+            <ul className='nav-menu-items' onClick={toggleSidebar}>
                 <li className='navbar-toggle'>
                     <Link to="#" className='menu-bars'>
                         <AiIcons.AiOutlineClose />
@@ -45,8 +46,8 @@ function Navbar() {
                         </li>
                     )
                 })}
-                <li>
-                    <button onClick={handleLogOut}>Log Out</button>
+                <li className='nav-text'>
+                    <a onClick={handleLogOut}><MdIcons.MdLogout /><span className='nav-bar-span'>Log Out</span></a>
                 </li>
             </ul>
         </nav>
@@ -56,3 +57,5 @@ function Navbar() {
 }
 
 export default Navbar
+
+// session.user.id

@@ -28,10 +28,10 @@ export const SidebarData = [
         icon: <MdIcons.MdAccountBox />,
         cName: 'nav-text'
     },
-    {
-        title: 'Log Out',
-        path: '/',
-        icon: <MdIcons.MdLogout />,
-        cName: 'nav-text'
-    },
+    // {
+    //     title: 'Log Out',
+    //     path: '/',
+    //     icon: <MdIcons.MdLogout />,
+    //     cName: 'nav-text'
+    // },
 ]
