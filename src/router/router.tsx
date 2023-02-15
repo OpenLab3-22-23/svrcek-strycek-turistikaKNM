@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import LogIn from "../auth/Login";
 import SignUp from "../auth/SignUp";
-import Mapa from "../components/Mapa";
+import Mapa from "../pages/Mapa";
 import Account from "../pages/Account";
 import MyHikes from "../pages/MyHikes";
 import Villages from "../pages/Villages";

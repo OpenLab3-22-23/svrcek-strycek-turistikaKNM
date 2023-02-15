@@ -4,3 +4,8 @@ const supabaseUrl = import.meta.env.VITE_SUPA_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPA_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+export async function HikesDataGPS() {
+    const { data, error} = await supabase.from("Hikes").select('GPS');
+    return {data, error};
+}
