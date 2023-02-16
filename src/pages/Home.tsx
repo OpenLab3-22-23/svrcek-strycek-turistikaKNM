@@ -1,28 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import "./Home.css"
 import Supabase from '@supabase/supabase-js';
-import { HikesDataGPS, supabase } from '../supabase/supabaseClient';
+import { HikesDataGPS, supabase, getHikes } from '../supabase/supabaseClient';
+import { Link } from "react-router-dom";
 
 function Home() {
 
-  HikesDataGPS()
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    async function getHikesData() {
+      const {data, error} = await getHikes();
+      setData(data);
+    }
+    // getHikesData();
+  })
 
   return (
     <>
       <Navbar />
       <div className='big-flexbox'>
         <div className='small-flexbox'>
-          <div>
-            <p></p>
-          </div>
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
-          <div>5</div>
-          <div>6</div>
-          <div>7</div>
-          <div>8</div>
+          {data.map((item) => {
+            return (
+              <>
+                <Link to='/details' className='hikes'>
+                  <h2>{item.name}</h2>
+                  <p>{item.altitude} m.n.m</p> 
+                </Link>
+              </>
+            )
+          })}
         </div>
       </div>
     </>

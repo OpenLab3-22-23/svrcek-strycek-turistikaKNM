@@ -1,13 +1,13 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 
-function Account() {
+function Details() {
   return (
     <>
-      <Navbar />
-      {/* <h2>{session.user.id}</h2> */}
+       <Navbar />
+       <div>Details</div>
     </>
   )
 }
 
-export default Account
+export default Details

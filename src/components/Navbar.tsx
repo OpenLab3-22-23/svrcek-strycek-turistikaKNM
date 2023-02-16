@@ -28,7 +28,7 @@ function Navbar() {
             <Link to="#" className="menu-bars">
                 <FaIcons.FaBars onClick={toggleSidebar}/>
             </Link>
-            <h1 className='nav-headher'>Turistika KNM</h1>
+            <h1 className='nav-headher'>Turistika KNM</h1>  
             <FaIcons.FaTree className='right-tree'/>
         </div>
         <nav className={sidebar ? 'nav-menu' : 'nav-menu-closed'}> 
@@ -59,5 +59,3 @@ function Navbar() {
 }
 
 export default Navbar
-
-// session.user.id
