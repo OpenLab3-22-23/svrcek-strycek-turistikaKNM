@@ -23,6 +23,12 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
+        title: 'Ski',
+        path: '/ski',
+        icon: <FaIcons.FaSkiing />,
+        cName: 'nav-text'
+    },
+    {
         title: 'Account',
         path: '/account',
         icon: <MdIcons.MdAccountBox />,

@@ -6,6 +6,7 @@ import Mapa from "../pages/Mapa";
 import Account from "../pages/Account";
 import MyHikes from "../pages/MyHikes";
 import Villages from "../pages/Villages";
+import Ski from "../pages/Ski";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
   {
     path: "/villages",
     element: <Villages />,
+  },
+  {
+    path: "/ski",
+    element: <Ski />,
   },
   {
     path: "/mapa",
