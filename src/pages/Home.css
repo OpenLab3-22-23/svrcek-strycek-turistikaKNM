@@ -18,9 +18,23 @@
     background-color: #060b26;
     height: 250px;
     width: 320px;
-    color: white;
     /* transition: 500ms; */
 }
+
+.hike-headher {
+    color: white;
+}
+
+.hike-altitude {
+    color: white;
+}
+
+.buttons-links {
+    color: white;
+    font-size: 50px;
+}
+
+
 
 /* .small-flexbox > *:hover{
     height: 350px;

@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
     element: <Villages />,
   },
   {
-    path: "/details",
+    path: "/:id",
     element: <Details />,
   },
 ]);
