@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import supabase from '../supabase/supabaseClient'
 import Mapa from '../components/Mapa'
 import "./Details.css"
+import { useAuth } from '../auth/Auth'
 
 function Details() {
+  const { session } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -25,8 +27,8 @@ function Details() {
       if (data) {
         setName(data.name);
         setAltitude(data.altitude);
-        setDescription(data.description)
-        setTime(data.time)
+        setDescription(data.description);
+        setTime(data.time);
       }
 
     }
@@ -36,12 +38,14 @@ function Details() {
   return (
     <>
       <Navbar />
-      <div className='big-flex'>
-        <h2>{name}</h2>
-        <p>{description}</p>
-        <p>{time}</p>
-        <Mapa id={id}/>
-      </div>
+      {session ? (
+        <div className='big-flex'>
+          <h2>{name}</h2>
+          <p>{description}</p>
+          <p>{time}</p>
+          <Mapa id={id}/>
+        </div>
+      ) : <Navigate to="/login" />}
     </>
   )
 }

@@ -10,7 +10,7 @@ function App() {
     <div>
       {session ? (
         <Home />
-      ) : <Navigate to="/signup" />}
+      ) : <Navigate to="/login" />}
     </div>
   );
 }
