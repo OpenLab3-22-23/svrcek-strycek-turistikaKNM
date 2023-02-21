@@ -1,45 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import "./Home.css"
-import Supabase from '@supabase/supabase-js';
-import { HikesDataGPS, supabase, getHikes } from '../supabase/supabaseClient';
+import { supabase } from '../supabase/supabaseClient';
+import HikeCard from '../components/HikeCard';
 
 function Home() {
 
-  // useEffect(() => {
-  //   async function getData() {
-  //     const {data, error} = await HikesDataGPS();
-  //     console.log(data)
-  //   }
-
-  //   getData();
-  // },[])
-
-  const [name, setName] = useState([])
+  const [fetchError, setFetchError] = useState("")
+  const [hikes, setHikes] = useState([])
 
   useEffect(() => {
-    async function getHikesData(){
-      const {data, error} = await getHikes();
-      setName(data)
-      console.log(data)
+    const fetchHikes = async () => {
+      const { data, error } = await supabase.from("Hikes").select();
+      if (error) {
+        setFetchError('Fetch Error')
+        setHikes([])
+        console.log(error)
+      }
+      if (data) {
+        setHikes(data)
+        setFetchError("")
+      }
     }
-
-    getHikesData();
-  },[])
+    fetchHikes()
+  }, [])
 
   return (
     <>
       <Navbar />
       <div className='big-flexbox'>
-        <div className='small-flexbox'>
-           {name.map((item) => {
-                return (
-                  <div>
-                      <p>{item.Name}</p>
-                  </div>
-                )
-            })}
-        </div>
+          {hikes && (
+              <div className='small-flexbox'>
+                {fetchError && (<p>{fetchError}</p>)}
+                {hikes.map(hike => (
+                  <HikeCard key={hike.id} hike={hike} />
+                ))}
+              </div>
+          )}
       </div>
     </>
   )

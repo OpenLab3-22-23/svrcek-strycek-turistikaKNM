@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 
 function Account() {
   return (
     <>
       <Navbar />
-      <h2>Account</h2>
+      {/* <h2>{session.user.id}</h2> */}
     </>
   )
 }
