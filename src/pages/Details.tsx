@@ -5,6 +5,7 @@ import supabase from '../supabase/supabaseClient'
 import Mapa from '../components/Mapa'
 import "./Details.css"
 import { useAuth } from '../auth/Auth'
+import Weather from '../components/Weather'
 
 function Details() {
   const { session } = useAuth();
@@ -44,6 +45,7 @@ function Details() {
           <p>{description}</p>
           <p>{time}</p>
           <Mapa id={id}/>
+          <Weather id={id}/>
         </div>
       ) : <Navigate to="/login" />}
     </>
