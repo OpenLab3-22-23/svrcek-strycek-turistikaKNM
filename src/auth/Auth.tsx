@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../supabase/supabaseClient";
 
 interface AuthObject {
-  signUp: (email: string, password: string) => Promise<AuthResponse>;
+  signUp: (email: string, password: string, username: string) => Promise<AuthResponse>;
   signIn: (email: string, password: string) => Promise<AuthResponse>;
   signOut: () => Promise<{ error: AuthError | null }>;
   session: Session | null;
@@ -26,9 +26,9 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       setLoading(false);
     });
   }, []);
-
+  
   const auth: AuthObject = {
-    signUp: (email, password) => supabase.auth.signUp({ email, password }),
+    signUp: (email, password, username) => supabase.auth.signUp({ email, password, options: { data: {username}}}),
     signIn: (email, password) =>
       supabase.auth.signInWithPassword({ email, password }),
     signOut: () => supabase.auth.signOut(),

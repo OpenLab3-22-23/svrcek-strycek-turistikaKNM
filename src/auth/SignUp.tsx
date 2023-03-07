@@ -5,6 +5,7 @@ import "./LogSign.css";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { signUp, session } = useAuth();
@@ -12,7 +13,7 @@ export default function SignUp() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const { error } = await signUp(email, password);
+      const { error } = await signUp(email, password, username);
       if (error) throw error;
     } catch (error: any) {
       alert(error.error_description || error.message);
@@ -34,6 +35,14 @@ export default function SignUp() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="input3"
+        />
+        <input
+          id="username"
+          type="username"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="input4"
         />
         <input
           id="password"
