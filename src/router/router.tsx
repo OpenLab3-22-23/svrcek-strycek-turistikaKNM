@@ -7,6 +7,9 @@ import MyHikes from "../pages/MyHikes";
 import Villages from "../pages/Villages";
 import Details from "../pages/Details";
 import Ski from "../pages/Ski";
+import Raca from "../Raca"
+import Gajuz from "../Gajuz"
+
 
 export const router = createBrowserRouter([
   {
@@ -40,5 +43,13 @@ export const router = createBrowserRouter([
   {
     path: "/:id",
     element: <Details />,
+  },
+  {
+    path: "/raca",
+    element: <Raca />,
+  },
+  {
+  path: "/gajuz",
+  element: <Gajuz/>,
   },
 ]);
