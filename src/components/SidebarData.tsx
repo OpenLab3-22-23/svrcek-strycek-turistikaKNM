@@ -11,7 +11,7 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'My Hikes',
+        title: 'Saved Hikes',
         path: '/myhikes',
         icon: <FaIcons.FaHiking />,
         cName: 'nav-text'
