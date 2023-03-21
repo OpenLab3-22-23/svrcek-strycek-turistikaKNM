@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom"
 import * as CgIcons from "react-icons/cg";
 import supabase from "../supabase/supabaseClient";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../auth/Auth";
+import { render } from "react-dom";
 
-let allreadySaved: String = "";
+let savedArray: Array<Number> = []; 
 
 const HikeCard = ({ hike }) => {
     const { session } = useAuth();
@@ -13,22 +14,22 @@ const HikeCard = ({ hike }) => {
         const fetchSaved = async () => {
           const { data, error } = await supabase.from("profiles").select('saved_hikes').eq("id", session.user.id)
           if (data) {
-            allreadySaved = data[0].saved_hikes;
+            savedArray = data[0].saved_hikes;
           }
         }
         fetchSaved()
       }, [])
 
     async function pushSaved() {
-        if(!(allreadySaved.includes(hike.id))) {
-            allreadySaved = allreadySaved + String(hike.id);
+        if(!(savedArray.includes(hike.id))) {
+            savedArray.push(hike.id);
         } else {
-            allreadySaved = allreadySaved.replace(hike.id,'');
+            savedArray = savedArray.filter(e => e !== hike.id);
         }
-        console.log(allreadySaved);
 
-        const {} = await supabase.from('profiles').update({ saved_hikes: allreadySaved }).eq("id", session.user.id)
+        const {} = await supabase.from('profiles').update({ saved_hikes: savedArray }).eq("id", session.user.id)
     }
+
     return (
         <div className="hikes">
             <h3 className="hike-headher">{hike.name}</h3>

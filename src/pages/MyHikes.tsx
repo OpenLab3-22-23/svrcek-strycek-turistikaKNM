@@ -9,19 +9,40 @@ function MyHikes() {
   const { session } = useAuth();
 
   const [fetchError, setFetchError] = useState("")
-  const [hikes, setHikes] = useState([])
+  const [savedHikes, setSavedHikes] = useState([])
+  let savedArray: Array<Number> = []; 
 
   useEffect(() => {
-    const fetchHikes = async () => {
-      const { data, error } = await supabase.from("Hikes").select().eq("id", "1");
+    const fetchSaved = async () => {
+      const { data, error } = await supabase.from("profiles").select('saved_hikes').eq("id", session.user.id)
       if (error) {
         setFetchError('Fetch Error')
-        setHikes([])
         console.log(error)
       }
       if (data) {
-        setHikes(data)
+        savedArray = data[0].saved_hikes;
         setFetchError("")
+      }
+    }
+    fetchSaved()
+  }, [])
+
+  useEffect(() => {
+    const fetchHikes = async () => {
+      const { data, error } = await supabase.from("Hikes").select();
+      if (error) {
+        setFetchError('Fetch Error')
+        setSavedHikes([])
+        console.log(error)
+      }
+      if (data) {
+        if (savedArray.length == 0) {
+          setFetchError('You have no saved hikes!')
+        } else {
+          setSavedHikes(data.filter(item => savedArray.includes(item.id)))
+          // .map(id => (found => found ? found.key : null)(data.find(item => item.id === id)))
+          setFetchError("")
+        }
       }
     }
     fetchHikes()
@@ -34,10 +55,10 @@ function MyHikes() {
         <>
         <h2>Saved hikes by: {session.user.id}</h2>
         <div className='big-flexbox'>
-          {hikes && (
+          {savedHikes && (
               <div className='small-flexbox'>
                 {fetchError && (<p>{fetchError}</p>)}
-                {hikes.map(hike => (
+                {savedHikes.map(hike => (
                   <HikeCard key={hike.id} hike={hike} />
                 ))}
               </div>
