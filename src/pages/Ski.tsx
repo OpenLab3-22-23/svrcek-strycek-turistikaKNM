@@ -10,8 +10,8 @@ export default function Ski(): JSX.Element {
 
   function handleLogOut(): void {
       signOut();}
-  function NaRacu(){
 
+  function NaRacu(){
         return(
           <Link to="/raca" className="text-emerald-300">
             <button><img className="my-20" src="src\images\Raca.png" alt="Snowparadise Veľká Rača" /></button> 
@@ -25,6 +25,14 @@ export default function Ski(): JSX.Element {
           </Link>
           );
         }
+        function NaKasarne(){
+          return(
+            <Link to="/kasarne" className="text-emerald-300">
+           <button><img src="src\images\Kasarne.png"  /></button> 
+          </Link>
+          );
+        }
+       
   
 
   return (
@@ -54,9 +62,10 @@ export default function Ski(): JSX.Element {
 
               
               <div className="w-full md:w-1/3 px-2 mb-4">
-                <div className="cyan-200 rounded-lg p-4">
-                  <h2 className="text-lg font-medium mb-2">Makov</h2>
-                  *priestor na imgs*
+                <div className="bg-cyan-200 rounded-lg p-4">
+                <img src="src\images\Lokalita makov.png" alt="Oščadnica" />
+                <NaKasarne/>
+                
                 </div>
               </div>
               <div className="w-full md:w-1/3 px-2 mb-4">

@@ -5,7 +5,16 @@ import Box from '@mui/material/Box';
 import { supabase } from "./supabase/supabaseClient";
 
 export default function StarRating(props) {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(null);
+
+    async function UpdateRating()
+    {
+    const { data } = await supabase
+  .from('profiles')
+  .update({ SKIrating: value })
+  .eq('id', 1) //session.user.id
+    }
+
     return (
       <div>
         <Box align="left"  component="fieldset" mb={3} borderColor="transparent">
@@ -16,8 +25,11 @@ export default function StarRating(props) {
             onChange={(event, newValue) => {
               setValue(newValue);
               console.log(newValue);
+
             }}
-            onClick={props.handleInputChange}
+            onClick={props.handleInputChange
+     //         () => UpdateRating()
+            }
             
           />
         </Box>
@@ -29,7 +41,7 @@ export default function StarRating(props) {
       
       
     )
-
+    
     /*const { data , error } = await supabase
      .from('profiles')
      .update('description')*/
