@@ -13,7 +13,14 @@ function MyHikes() {
   let savedArray: Array<Number> = []; 
 
   useEffect(() => {
-    const fetchSaved = async () => {
+    async function retrieveSavedHikes() {
+      await fetchSaved()
+      await fetchHikes()
+    }
+    retrieveSavedHikes()
+  }, [])
+
+  async function fetchSaved() {
       const { data, error } = await supabase.from("profiles").select('saved_hikes').eq("id", session.user.id)
       if (error) {
         setFetchError('Fetch Error')
@@ -24,12 +31,9 @@ function MyHikes() {
         setFetchError("")
       }
     }
-    fetchSaved()
-  }, [])
 
-  useEffect(() => {
-    const fetchHikes = async () => {
-      const { data, error } = await supabase.from("Hikes").select();
+    async function fetchHikes() {
+      const { data, error } = await supabase.from("Hikes").select().in('id', savedArray);
       if (error) {
         setFetchError('Fetch Error')
         setSavedHikes([])
@@ -39,14 +43,12 @@ function MyHikes() {
         if (savedArray.length == 0) {
           setFetchError('You have no saved hikes!')
         } else {
-          setSavedHikes(data.filter(item => savedArray.includes(item.id)))
-          // .map(id => (found => found ? found.key : null)(data.find(item => item.id === id)))
+          data.sort((a, b) => savedArray.indexOf(b.id) - savedArray.indexOf(a.id))
+          setSavedHikes(data)
           setFetchError("")
         }
       }
     }
-    fetchHikes()
-  }, [])
 
   return (
     <>

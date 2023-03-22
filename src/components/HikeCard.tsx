@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
 import * as CgIcons from "react-icons/cg";
+import * as FaIcons from "react-icons/fa";
 import supabase from "../supabase/supabaseClient";
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/Auth";
-import { render } from "react-dom";
 
-let savedArray: Array<Number> = []; 
+let savedArray: Array<Number> = [];
+let test = true;
 
 const HikeCard = ({ hike }) => {
     const { session } = useAuth();
@@ -40,7 +41,9 @@ const HikeCard = ({ hike }) => {
                 </Link>
             </div>
             <div className="buttons-links">
-                <CgIcons.CgBookmark onClick={() => pushSaved()}/>
+                {/* <CgIcons.CgBookmark onClick={() => pushSaved()}/> */}
+                {/* <b>{test ? 'FaIcons.FaBookmark' : 'FaIcons.FaRegBookmark'}</b> */}
+                <FaIcons.FaRegBookmark onClick={() => pushSaved()}/>
             </div>
         </div>
     )
