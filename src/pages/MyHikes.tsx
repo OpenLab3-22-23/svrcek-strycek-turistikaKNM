@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../auth/Auth';
 import HikeCard from '../components/HikeCard';
+import { MyFavHikes } from '../components/MyFavHikes';
 import Navbar from '../components/Navbar'
 import supabase from '../supabase/supabaseClient';
 
@@ -54,19 +55,20 @@ function MyHikes() {
     <>
       <Navbar />
       {session ? (
-        <>
-        <h2>Saved hikes by: {session.user.id}</h2>
-        <div className='big-flexbox'>
-          {savedHikes && (
-              <div className='small-flexbox'>
-                {fetchError && (<p>{fetchError}</p>)}
-                {savedHikes.map(hike => (
-                  <HikeCard key={hike.id} hike={hike} />
-                ))}
-              </div>
-          )}
-        </div>
-        </>
+        // <>
+        // <h2>Saved hikes by: {session.user.id}</h2>
+        // <div className='big-flexbox'>
+        //   {savedHikes && (
+        //       <div className='small-flexbox'>
+        //         {fetchError && (<p>{fetchError}</p>)}
+        //         {savedHikes.map(hike => (
+        //           <HikeCard key={hike.id} hike={hike} />
+        //         ))}
+        //       </div>
+        //   )}
+        // </div>
+        // </>
+        <MyFavHikes/>
       ) : <Navigate to="/login" />}
     </>
   )
