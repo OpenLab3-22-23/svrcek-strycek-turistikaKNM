@@ -42,10 +42,14 @@ function Details() {
       {session ? (
         <div className='big-flex'>
           <h2>{name}</h2>
-          <p>{description}</p>
-          <p>{time}</p>
-          <Mapa id={id}/>
-          <Weather id={id}/>
+          <div className='description'>
+            <p>{description}</p>
+          </div>
+          {/* <p>{time}</p> */}
+          <div className='container'>
+            <Mapa id={id} />
+            <Weather id={id} />
+          </div>
         </div>
       ) : <Navigate to="/login" />}
     </>
