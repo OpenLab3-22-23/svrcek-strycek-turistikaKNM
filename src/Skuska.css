@@ -74,3 +74,14 @@ body {
 .Hodnotenie{
   font-weight:bold;
 }
+.RatingToSupa{
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+.BoxDiv{
+ text-align: center;
+}
+.UpperBoxDiv{
+  text-align: center;
+}
