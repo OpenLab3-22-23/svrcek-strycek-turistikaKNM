@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import "./Home.css"
 import { supabase } from '../supabase/supabaseClient';
-import HikeCard from '../components/HikeCard';
+import { HikeCard } from '../components/MyFavHikes';
 
 function Home() {
 
@@ -33,7 +33,7 @@ function Home() {
               <div className='small-flexbox'>
                 {fetchError && (<p>{fetchError}</p>)}
                 {hikes.map(hike => (
-                  <HikeCard key={hike.id} hike={hike} />
+                   <HikeCard key={hike.id} hikeName={hike.name} hikeAltitude={hike.altitude} hikeId={hike.id} removeHike={() => RemoveFavHike(hike.id)}/>
                 ))}
               </div>
           )}

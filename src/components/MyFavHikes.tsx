@@ -5,7 +5,32 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../auth/Auth";
 import supabase from '../supabase/supabaseClient';
 
-function HikeCard({ removeHike, hikeName, hikeAltitude, hikeId }: { removeHike: (hikeId: number) => void, hikeName: string, hikeAltitude: string, hikeId: number }) {
+let savedArray: Array<Number> = [];
+
+export function HikeCard({ removeHike, hikeName, hikeAltitude, hikeId, isFav }: { removeHike: (hikeId: number) => void, hikeName: string, hikeAltitude: string, hikeId: number, isFav: boolean }) {
+    const { session } = useAuth();
+
+    
+    useEffect(() => {
+        const fetchSaved = async () => {
+          const { data, error } = await supabase.from("profiles").select('saved_hikes').eq("id", session.user.id)
+          if (data) {
+            savedArray = data[0].saved_hikes;
+          }
+        }
+        fetchSaved()
+      }, [])
+
+    async function pushSaved() {
+        if(!(savedArray.includes(hikeId))) {
+            savedArray.push(hikeId);
+        } else {
+            savedArray = savedArray.filter(e => e !== hikeId);
+        }
+
+        const {} = await supabase.from('profiles').update({ saved_hikes: savedArray }).eq("id", session.user.id)
+    }
+
 
     return (
         <div className="hikes">
@@ -17,9 +42,8 @@ function HikeCard({ removeHike, hikeName, hikeAltitude, hikeId }: { removeHike: 
                 </Link>
             </div>
             <div className="buttons-links">
-                {/* <CgIcons.CgBookmark onClick={() => pushSaved()}/> */}
-                {/* <b>{test ? 'FaIcons.FaBookmark' : 'FaIcons.FaRegBookmark'}</b> */}
-                <FaIcons.FaRegBookmark onClick={() => removeHike(hikeId)} />
+                {/* <FaIcons.FaRegBookmark onClick={() => removeHike(hikeId)} /> */}
+                {isFav ? <FaIcons.FaBookmark onClick={() => removeHike(hikeId)}/> : <FaIcons.FaRegBookmark onClick={() => pushSaved()}/>}
             </div>
         </div>
     )
@@ -76,7 +100,7 @@ export function MyFavHikes() {
                 {favHikes && (
                     <div className='small-flexbox'>
                         {favHikes.map(hike => (
-                            <HikeCard key={hike.id} hikeName={hike.name} hikeAltitude={hike.altitude} hikeId={hike.id} removeHike={() => RemoveFavHike(hike.id)}/>
+                            <HikeCard key={hike.id} hikeName={hike.name} hikeAltitude={hike.altitude} hikeId={hike.id} removeHike={() => RemoveFavHike(hike.id)} isFav={true}/>
                         ))}
                     </div>
                 )}
