@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function StarRating() {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState('nieo');
+  const [currentUser, setCurrentUser] = useState('MenoUzivatela');
 
   useEffect(() => {
     const fetchGPS = async () => {
@@ -21,7 +21,7 @@ export default function StarRating() {
       }
 
       if (data) {
-        console.log(data[0].username);
+        //console.log(data[0].username);
         setCurrentUser(data[0].username);
       }
 
@@ -43,14 +43,28 @@ export default function StarRating() {
     
   }
 
-  const [dajHviezdy, setDajHviezdy] = useState('nieo');
+  const [dajHviezdy, setDajHviezdy] = useState(null);
   useEffect(() => {
     const fetchValue = async () => {
-      const { data } = await supabase.from('profiles').select('starsRaca') //.eq('id', session?.user.id)
+      const { data } = await supabase.from('profiles').select('starsRaca').eq('id', session?.user.id)
       
   if(data) {
     console.log(data)
-    setDajHviezdy(data)
+    setDajHviezdy(data[0].starsRaca)
+  }
+
+    }
+    fetchValue();
+  }, [])
+
+  const [dajCudzieHviezdy, setDajCudzieHviezdy] = useState(null);
+  useEffect(() => {
+    const fetchValue = async () => {
+      const { data } = await supabase.from('profiles').select('starsRaca').neq('id', session?.user.id)
+      
+  if(data) {
+    console.log(data)
+    setDajCudzieHviezdy(data[0].starsRaca)
   }
 
     }
@@ -60,7 +74,7 @@ export default function StarRating() {
   return (
     <div className="UpperBoxDiv">
       <Box className="BoxDiv" align="left" component="fieldset" mb={3} borderColor="transparent">
-        <p className="Hodnotenie">Zadaj hodnotenie:</p>
+        <p className="Hodnotenie">Zadaj svoje hodnotenie:</p>
 
         <Rating
           value={value}
@@ -74,7 +88,9 @@ export default function StarRating() {
         />
       </Box>
       <div>
-        {currentUser} <Rating name="read-only" value={dajHviezdy[1].starsRaca} readOnly />
+        {currentUser} <Rating name="read-only" value={dajHviezdy} readOnly />
+        <br></br>
+        <Rating name="read-only" value={dajCudzieHviezdy} readOnly />
       </div>
       <div className="RatingToSupa">
         <Button variant="contained" color="success" onClick={UpdateRating}> Ulož svoje hodnotenie </Button>
