@@ -11,10 +11,12 @@ import { useNavigate } from "react-router-dom";
 export default function StarRating() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState('MenoUzivatela');
+  const [fetchedRatings, setFetchedRatings] = useState([0]);
 
   useEffect(() => {
     const fetchGPS = async () => {
       const { data, error } = await supabase.from('profiles').select().eq('id', session.user.id);
+      
 
       if (error) {
         navigate('/', { replace: true });
@@ -31,10 +33,43 @@ export default function StarRating() {
 
   const { session } = useAuth();
  
+  useEffect(() => {
+    const fetchRatings = async () => {
+      const { data, error } = await supabase.from('profiles').select('starsRaca');
+      
+
+      if (error) {
+        navigate('/', { replace: true });
+      }
+
+      if (data) {
+      
+   console.log(data);
+      
+      setFetchedRatings(data[0].starsRaca)
+      
+      }
+
+     
+    }
+    fetchRatings();
+  }, [navigate]) 
+
+  console.log(fetchedRatings);
+  function getAvg(fetchedRatings) {
+    const total = fetchedRatings.reduce((acc, c) => acc + c, 0);
+    return total / fetchedRatings.length;
+  }
+  
+  const average = getAvg(fetchedRatings);
+  console.log(average);
+  
+  
+
+
  
-  let afterValue;
-  const [value, setValue] = useState(null);
 /////////////
+const [value, setValue] = useState(null);
 
   async function UpdateRating() {
     console.log(value);
@@ -90,7 +125,7 @@ export default function StarRating() {
       <div>
         {currentUser} <Rating name="read-only" value={dajHviezdy} readOnly />
         <br></br>
-        <Rating name="read-only" value={dajCudzieHviezdy} readOnly />
+        <Rating name="read-only" value={average} readOnly />
       </div>
       <div className="RatingToSupa">
         <Button variant="contained" color="success" onClick={UpdateRating}> Ulož svoje hodnotenie </Button>
