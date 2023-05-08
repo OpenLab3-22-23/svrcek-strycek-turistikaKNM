@@ -11,10 +11,10 @@ import { useNavigate } from "react-router-dom";
 export default function StarRating() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState('MenoUzivatela');
-  const [fetchedAllRatings, setFetchedAllRatings] = useState([]);
+  const [fetchedAllRatings, setFetchedAllRatings] = useState([0]);
 
   useEffect(() => {
-    const fetchGPS = async () => {
+    const fetchCurrent = async () => {
       const { data, error } = await supabase.from('profiles').select().eq('id', session.user.id);
       
 
@@ -28,7 +28,7 @@ export default function StarRating() {
       }
 
     }
-    fetchGPS();
+    fetchCurrent();
   }, [navigate])
 
   const { session } = useAuth();
@@ -44,19 +44,19 @@ export default function StarRating() {
 
       if (data) {
       
-   console.log(data);
+   console.log("allRating fetch:"+data);
 
    const allRatings = data.map(item => item.starsRaca).filter(starsRaca => Number.isInteger(starsRaca));
     setFetchedAllRatings(allRatings);
-     
-     /*const integers = data.filter(element => Number.isInteger(element));
-     setFetchedRatings(integers);*/
+    
+ 
 }
       
     }
     fetchRatings();
   }, [navigate]) ;
   //console.log(fetchedAllRatings);
+ 
   function getAvg(fetchedAllRatings) {
     let total = fetchedAllRatings.reduce((acc, c) => acc + c, 0);
     let totok = total / fetchedAllRatings.length;
@@ -76,7 +76,7 @@ export default function StarRating() {
 const [value, setValue] = useState(null);
 
   async function UpdateRating() {
-    console.log(value);
+    console.log("updated to:" + value);
     const {error} = await supabase.from('profiles').update({ starsRaca: value }).eq('id', session?.user.id).select() //session.user.id
    
     
@@ -88,7 +88,7 @@ const [value, setValue] = useState(null);
       const { data } = await supabase.from('profiles').select('starsRaca').eq('id', session?.user.id)
       
   if(data) {
-    console.log(data)
+    console.log("current:"+data)
     setDajHviezdy(data[0].starsRaca)
   }
 
@@ -96,19 +96,23 @@ const [value, setValue] = useState(null);
     fetchValue();
   }, [])
 
+///////////////
   const [dajCudzieHviezdy, setDajCudzieHviezdy] = useState(null);
   useEffect(() => {
     const fetchValue = async () => {
       const { data } = await supabase.from('profiles').select('starsRaca').neq('id', session?.user.id)
       
   if(data) {
-    console.log(data)
+    console.log("cudzieRatingy:"+data)
     setDajCudzieHviezdy(data[0].starsRaca)
   }
 
     }
     fetchValue();
   }, [])
+/////////////////////////
+
+
 
   return (
     <div className="UpperBoxDiv">
@@ -129,7 +133,7 @@ const [value, setValue] = useState(null);
       <div>
         {currentUser} <Rating name="read-only" value={dajHviezdy} readOnly />
         <br></br>
-        Priemer <Rating name="read-only" value={average} readOnly />
+        Priemerné hodnotenie <Rating name="read-only" value={average} readOnly />
       </div>
       <div className="RatingToSupa">
         <Button variant="contained" color="success" onClick={UpdateRating}> Ulož svoje hodnotenie </Button>
