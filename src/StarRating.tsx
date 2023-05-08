@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 export default function StarRating() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState('MenoUzivatela');
-  const [fetchedRatings, setFetchedRatings] = useState([0]);
+  const [fetchedAllRatings, setFetchedAllRatings] = useState([]);
 
   useEffect(() => {
     const fetchGPS = async () => {
@@ -45,24 +45,28 @@ export default function StarRating() {
       if (data) {
       
    console.log(data);
-      
-      setFetchedRatings(data[0].starsRaca)
-      
-      }
 
+   const allRatings = data.map(item => item.starsRaca).filter(starsRaca => Number.isInteger(starsRaca));
+    setFetchedAllRatings(allRatings);
      
+     /*const integers = data.filter(element => Number.isInteger(element));
+     setFetchedRatings(integers);*/
+}
+      
     }
     fetchRatings();
-  }, [navigate]) 
-
-  console.log(fetchedRatings);
-  function getAvg(fetchedRatings) {
-    const total = fetchedRatings.reduce((acc, c) => acc + c, 0);
-    return total / fetchedRatings.length;
+  }, [navigate]) ;
+  //console.log(fetchedAllRatings);
+  function getAvg(fetchedAllRatings) {
+    let total = fetchedAllRatings.reduce((acc, c) => acc + c, 0);
+    let totok = total / fetchedAllRatings.length;
+    return Math.round(totok);
   }
   
-  const average = getAvg(fetchedRatings);
-  console.log(average);
+  let average = getAvg(fetchedAllRatings);
+
+
+  console.log("priemer=" + average); 
   
   
 
@@ -125,7 +129,7 @@ const [value, setValue] = useState(null);
       <div>
         {currentUser} <Rating name="read-only" value={dajHviezdy} readOnly />
         <br></br>
-        <Rating name="read-only" value={average} readOnly />
+        Priemer <Rating name="read-only" value={average} readOnly />
       </div>
       <div className="RatingToSupa">
         <Button variant="contained" color="success" onClick={UpdateRating}> Ulož svoje hodnotenie </Button>
