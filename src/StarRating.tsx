@@ -44,7 +44,7 @@ export default function StarRating() {
 
       if (data) {
       
-   console.log("allRating fetch:"+data);
+   console.log(data);
 
    const allRatings = data.map(item => item.starsRaca).filter(starsRaca => Number.isInteger(starsRaca));
     setFetchedAllRatings(allRatings);
@@ -77,8 +77,14 @@ const [value, setValue] = useState(null);
 
   async function UpdateRating() {
     console.log("updated to:" + value);
-    const {error} = await supabase.from('profiles').update({ starsRaca: value }).eq('id', session?.user.id).select() //session.user.id
-   
+    const {data, error} = await supabase.from('profiles').update({ starsRaca: value }).eq('id', session?.user.id).select() //session.user.id
+    
+     if(data){
+       setDajHviezdy(data[0].starsRaca) 
+       console.log("current1:"+data[0].starsRaca)
+       setFetchedAllRatings(fetchedAllRatings);
+      }
+  
     
   }
 
@@ -90,6 +96,7 @@ const [value, setValue] = useState(null);
   if(data) {
     console.log("current:"+data)
     setDajHviezdy(data[0].starsRaca)
+
   }
 
     }
@@ -97,6 +104,12 @@ const [value, setValue] = useState(null);
   }, [])
 
 ///////////////
+useEffect(() => {
+  
+
+}, [])
+
+
   const [dajCudzieHviezdy, setDajCudzieHviezdy] = useState(null);
   useEffect(() => {
     const fetchValue = async () => {
