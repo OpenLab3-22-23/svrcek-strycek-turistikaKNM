@@ -12,6 +12,7 @@ export default function StarRating() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState('MenoUzivatela');
   const [fetchedAllRatings, setFetchedAllRatings] = useState([0]);
+  const [avgRating, setAvgRating] = useState(0);
 
   useEffect(() => {
     const fetchCurrent = async () => {
@@ -44,10 +45,9 @@ export default function StarRating() {
 
       if (data) {
       
-   console.log(data);
+   //console.log(data);
 
-   const allRatings = data.map(item => item.starsRaca).filter(starsRaca => Number.isInteger(starsRaca));
-    setFetchedAllRatings(allRatings);
+
     
  
 }
@@ -57,16 +57,24 @@ export default function StarRating() {
   }, [navigate]) ;
   //console.log(fetchedAllRatings);
  
-  function getAvg(fetchedAllRatings) {
-    let total = fetchedAllRatings.reduce((acc, c) => acc + c, 0);
-    let totok = total / fetchedAllRatings.length;
-    return Math.round(totok);
+  async function getAvg() {
+    // fetch BE for avg ratings
+    const { data, error } = await supabase.from('profiles').select('starsRaca');
+    console.log(data, "allOBJ")
+    const allRatings = data.map(item => item.starsRaca).filter(starsRaca => Number.isInteger(starsRaca));
+    console.log(allRatings, "allMapped")
+    // calculate AVG rating (number)
+    let total = allRatings.reduce((acc, c) => acc + c, 0);
+    let totok = total / allRatings.length;
+    
+    // set new avg rating
+    setAvgRating(Math.round(totok));
+    console.log(totok, "Average")
   }
   
-  let average = getAvg(fetchedAllRatings);
+  
 
 
-  console.log("priemer=" + average); 
   
   
 
@@ -76,15 +84,15 @@ export default function StarRating() {
 const [value, setValue] = useState(null);
 
   async function UpdateRating() {
-    console.log("updated to:" + value);
+   // console.log("updated to:" + value);
     const {data, error} = await supabase.from('profiles').update({ starsRaca: value }).eq('id', session?.user.id).select() //session.user.id
     
      if(data){
        setDajHviezdy(data[0].starsRaca) 
-       console.log("current1:"+data[0].starsRaca)
+       console.log("loggedUserUpdated:"+data[0].starsRaca)
        setFetchedAllRatings(fetchedAllRatings);
       }
-  
+      getAvg()
     
   }
 
@@ -94,7 +102,7 @@ const [value, setValue] = useState(null);
       const { data } = await supabase.from('profiles').select('starsRaca').eq('id', session?.user.id)
       
   if(data) {
-    console.log("current:"+data)
+    console.log("FirstFetchLoggedUser"+data)
     setDajHviezdy(data[0].starsRaca)
 
   }
@@ -109,19 +117,8 @@ useEffect(() => {
 
 }, [])
 
-
-  const [dajCudzieHviezdy, setDajCudzieHviezdy] = useState(null);
   useEffect(() => {
-    const fetchValue = async () => {
-      const { data } = await supabase.from('profiles').select('starsRaca').neq('id', session?.user.id)
-      
-  if(data) {
-    console.log("cudzieRatingy:"+data)
-    setDajCudzieHviezdy(data[0].starsRaca)
-  }
-
-    }
-    fetchValue();
+    getAvg();
   }, [])
 /////////////////////////
 
@@ -146,7 +143,7 @@ useEffect(() => {
       <div>
         {currentUser} <Rating name="read-only" value={dajHviezdy} readOnly />
         <br></br>
-        Priemerné hodnotenie <Rating name="read-only" value={average} readOnly />
+        Priemerné hodnotenie <Rating name="read-only" value={avgRating} readOnly />
       </div>
       <div className="RatingToSupa">
         <Button variant="contained" color="success" onClick={UpdateRating}> Ulož svoje hodnotenie </Button>
