@@ -149,5 +149,6 @@ useEffect(() => {
         <Button variant="contained" color="success" onClick={UpdateRating}> Ulož svoje hodnotenie </Button>
       </div>
     </div>
+    
   )
 }

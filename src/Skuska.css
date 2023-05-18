@@ -19,10 +19,26 @@ body {
       left: 20px;
 
   }
+  .GajuzSTRLyziar{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    
+}
+.GajuzSTRLyziarIMG{
+  width: 370px;
+  height: 300px;
+
+}
   .RacaSTRLogo{
       position: absolute;
       top: 20px;
       left:430px;  
+}
+.GajuzSTRLogo{
+  position: absolute;
+  top: 20px;
+  left:430px;  
 }
 .RacaInfoDiv{
   display: inline-block;
@@ -76,9 +92,10 @@ body {
 }
 .RatingToSupa{
   display: flex;
-  justify-content: center;
-  margin: 0;
-}
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 20vh;
+bottom: 3%;}
 .BoxDiv{
  text-align: center;
 }
