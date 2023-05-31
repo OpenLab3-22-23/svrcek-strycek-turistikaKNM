@@ -36,15 +36,31 @@ function Home() {
   }, []);
 
   async function toggleHike(hikeId: number) {
-    const { data, error } = await supabase
-      .from("profiles")
-      .update({ saved_hikes: [...favHikes, hikeId] })
-      .eq("id", session.user.id).select();
-    if (data) {
-      setFavHikes(data[0].saved_hikes);
-      console.log(data);
-    } else if (error) {
-      console.log(error);
+    if (!favHikes.includes(hikeId)) {
+      const { data, error } = await supabase
+        .from("profiles")
+        .update({ saved_hikes: [...favHikes, hikeId] })
+        .eq("id", session.user.id)
+        .select();
+      if (data) {
+        setFavHikes(data[0].saved_hikes);
+        console.log(data);
+      } else if (error) {
+        console.log(error);
+      }
+    } else if (favHikes.includes(hikeId)) {
+      const filteredHikes = favHikes.filter(hike => hike != hikeId);
+      const { data, error } = await supabase
+        .from('profiles')
+        .update({ saved_hikes: filteredHikes })
+        .eq("id", session.user.id)
+        .select();
+      if (data) {
+        setFavHikes(data[0].saved_hikes);
+        console.log(data);
+      } else if (error) {
+        console.log(error);
+      }
     }
   }
 
