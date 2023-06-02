@@ -3,10 +3,11 @@ import App from "../App";
 import LogIn from "../auth/Login";
 import SignUp from "../auth/SignUp";
 import Account from "../pages/Account";
-import MyHikes from "../pages/MyHikes";
-import Villages from "../pages/Villages";
 import Details from "../pages/Details";
+import MyHikes from "../pages/MyHikes";
 import Ski from "../pages/Ski";
+import VillageWithHikes from "../pages/VillageWithHikes";
+import Villages from "../pages/Villages";
 
 export const router = createBrowserRouter([
   {
@@ -41,4 +42,8 @@ export const router = createBrowserRouter([
     path: "/:id",
     element: <Details />,
   },
+  {
+    path: "/villages/:id/:villagename",
+    element: <VillageWithHikes />
+  }
 ]);
