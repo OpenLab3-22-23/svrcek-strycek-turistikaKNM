@@ -4,7 +4,7 @@ import "./Skuska.css";
 import Rating from '@mui/material/Rating';
 //import Box from '@material-ui/core/Box';
 import Box from '@mui/material/Box';
-import StarRating from "./StarRating";
+import StarRatingSP from "./StarRatingSP";
 
 
 export default function Raca(){
@@ -32,7 +32,7 @@ Snowparadise Veľká Rača ponúka najdlhšie zjazdovky na večerné lyžovanie 
                 <div  className="StarRatingColumn">
                     
                     
-                    <StarRating/>
+                    <StarRatingSP/>
                 </div>
              
 

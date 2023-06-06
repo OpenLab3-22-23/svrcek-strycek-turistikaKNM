@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "./auth/Auth";
 import { useNavigate } from "react-router-dom";
 
-export default function StarRating() {
+export default function StarRatingSP() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState('MenoUzivatela');
   const [fetchedAllRatings, setFetchedAllRatings] = useState([0]);

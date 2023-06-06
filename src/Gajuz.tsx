@@ -1,5 +1,5 @@
 import "./Skuska.css";
-import StarRating from "./StarRating";
+import StarRatingG from "./StarRatingG";
 
 
 export default function Gajuz(){
@@ -20,7 +20,7 @@ U nás začína ( končí ) cca 2 km dlhá nenáročná  trasa náučného chodn
 V roku 2021 bola na vrchole vybudovaná 13 m vysoká kamenno - drevená rozhľadňa.  </p>
               </div>
           <div className="RecenzieDiv"></div>
-          <div className="GMaps"><button><a href="https://www.google.sk/maps/place/Snowparadise+Ve%C4%BEk%C3%A1+Ra%C4%8Da+O%C5%A1%C4%8Dadnica/@49.4151925,18.9182577,16.75z/data=!4m6!3m5!1s0x47144722a0cd77ff:0x9f784ef390178455!8m2!3d49.415121!4d18.920534!16s%2Fg%2F1232457r2" target="_blank"><img src="src\images\GMapsLogo.png"></img></a></button></div>
+          <div className="GMaps"><button><a href="https://www.google.sk/maps/place/%C5%A0portcentrum+O%C5%A1%C4%8Dadnica/@49.4324588,18.8808649,17z/data=!3m1!4b1!4m6!3m5!1s0x471440c78e8c8811:0x90a51815cf7c3b7a!8m2!3d49.4324553!4d18.8834452!16s%2Fg%2F11gfp1lndc?entry=ttu" target="_blank"><img src="src\images\GMapsLogo.png"></img></a></button></div>
               <div className="StarRatingDiv">
                   <br></br>
                   <h1 className="RecenzieH1">Recenzie</h1>
@@ -28,7 +28,7 @@ V roku 2021 bola na vrchole vybudovaná 13 m vysoká kamenno - drevená rozhľad
                   <div  className="StarRatingColumn">
                       
                       
-                      <StarRating/>
+                      <StarRatingG/>
                   </div>
                
   
