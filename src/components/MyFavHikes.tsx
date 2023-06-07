@@ -15,14 +15,16 @@ export function MyFavHikes() {
       .select('saved_hikes')
       .eq('id', session.user.id);
 
+      setSavedArray(data[0].saved_hikes)
+
     const myHikes = await supabase
       .from('Hikes')
       .select()
       .in('id', data[0].saved_hikes);
 
     if (data && myHikes.data) {
-      console.log(data[0].saved_hikes);
-      console.log(myHikes.data);
+      // console.log(data[0].saved_hikes);
+      // console.log(myHikes.data);
       setFavHikes(
         myHikes.data.sort(
           (a, b) =>
