@@ -9,7 +9,9 @@ function VillageList() {
     async function getVillages() {
       const { data, error } = await supabase
         .from("Villages")
-        .select(`id, village_name, erb_url, Hikes(id, name, altitude, time, distance)`);
+        .select(
+          `id, village_name, erb_url, Hikes(id, name, altitude, time, distance)`
+        );
       if (!error) {
         setVillages(data);
         console.log(data);
@@ -27,7 +29,7 @@ function VillageList() {
           ? villages.map((village) => (
               <div className="list-none w-1/4">
                 <li key={village.village_name}>
-                  <div className="bg-[#060b26] rounded-lg m-4">
+                  <div className="bg-[#060b26] rounded-2xl m-4 border-solid border-[#060b26] hover:border-white">
                     <Link
                       className="flex flex-col items-center visited:text-transparent"
                       to={`${village.id}/${village.village_name}`}
@@ -36,7 +38,7 @@ function VillageList() {
                       <p className="text-4xl font-semibold tracking-wide text-slate-50 mb-4 mt-6">
                         {village.village_name}
                       </p>
-                      <div className="bg-slate-50 rounded-lg">
+                      <div className="bg-slate-50 rounded-2xl">
                         <img
                           className="m-6"
                           alt="Obrazok obce"
