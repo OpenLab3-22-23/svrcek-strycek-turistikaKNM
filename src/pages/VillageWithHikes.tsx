@@ -13,9 +13,7 @@ export default function VillageWithHikes() {
         <div className="my-10">
           <div className="container flex flex-col justify-center bg-[#060b26] rounded-3xl py-10">
             <img src={state.erbUrl} alt="erb dediny" />
-            <h2 className="text-6xl text-white mt-5">
-              {villagename}
-            </h2>
+            <h2 className="text-6xl text-white mt-5">{villagename}</h2>
           </div>
         </div>
         <div className="container flex justify-center mx-auto">
@@ -33,13 +31,14 @@ export default function VillageWithHikes() {
                       <th className="px-6 py-2 text-l text-black">
                         Vzdialenosť
                       </th>
-                      <th className="px-6 py-2 text-l text-black">
-                        Navštíviť
-                      </th>
+                      <th className="px-6 py-2 text-l text-black">Navštíviť</th>
                     </tr>
                   </thead>
                   {state.hikes.map((hike) => (
-                    <tbody className="bg-gray-100 divide-y divide-gray-300">
+                    <tbody
+                      key={hike.name}
+                      className="bg-gray-100 divide-y divide-gray-300"
+                    >
                       <tr className="whitespace-nowrap">
                         <td className="px-6 py-4">
                           <div className="text-xl text-gray-900">

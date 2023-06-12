@@ -27,31 +27,29 @@ function VillageList() {
       <ul className="flex flex-row flex-wrap p-0">
         {villages
           ? villages.map((village) => (
-              <div className="list-none w-1/4">
-                <li key={village.village_name}>
-                  <div className="bg-[#060b26] rounded-2xl m-4 border-solid border-[#060b26] hover:border-white">
-                    <Link
-                      className="flex flex-col items-center visited:text-transparent"
-                      to={`${village.id}/${village.village_name}`}
-                      state={{ erbUrl: village.erb_url, hikes: village.Hikes }}
-                    >
-                      <p className="text-4xl font-semibold tracking-wide text-slate-50 mb-4 mt-6">
-                        {village.village_name}
-                      </p>
-                      <div className="bg-slate-50 rounded-2xl">
-                        <img
-                          className="m-6"
-                          alt="Obrazok obce"
-                          src={village.erb_url}
-                        />
-                      </div>
-                      <p className="text-slate-50 text-xl">
-                        Number of Hikes: {village.Hikes.length}
-                      </p>
-                    </Link>
-                  </div>
-                </li>
-              </div>
+              <li key={village.village_name} className="list-none w-1/4">
+                <div className="bg-[#060b26] rounded-2xl m-4 border-solid border-[#060b26] hover:border-white">
+                  <Link
+                    className="flex flex-col items-center visited:text-transparent"
+                    to={`${village.id}/${village.village_name}`}
+                    state={{ erbUrl: village.erb_url, hikes: village.Hikes }}
+                  >
+                    <p className="text-4xl font-semibold tracking-wide text-slate-50 mb-4 mt-6">
+                      {village.village_name}
+                    </p>
+                    <div className="bg-slate-50 rounded-2xl">
+                      <img
+                        className="m-6"
+                        alt="Obrazok obce"
+                        src={village.erb_url}
+                      />
+                    </div>
+                    <p className="text-slate-50 text-xl">
+                      Number of Hikes: {village.Hikes.length}
+                    </p>
+                  </Link>
+                </div>
+              </li>
             ))
           : null}
       </ul>
