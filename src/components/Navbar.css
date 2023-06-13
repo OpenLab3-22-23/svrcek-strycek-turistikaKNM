@@ -101,6 +101,11 @@
 
 .profile-container {
     display: flex;
+    width: 13rem;
+}
+
+.menu-bars-container {
+    width: 13rem;
 }
 
 .userName {

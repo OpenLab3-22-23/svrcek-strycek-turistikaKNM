@@ -47,7 +47,7 @@ function Navbar() {
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <div className="navbar">
-          <div>
+          <div className="menu-bars-container">
             <FaIcons.FaBars className="menu-bars" onClick={toggleSidebar} />
           </div>
           <div>
@@ -76,7 +76,7 @@ function Navbar() {
             <li className="nav-text">
               <a onClick={handleLogOut}>
                 <MdIcons.MdLogout />
-                <span className="nav-bar-span">Log Out</span>
+                <span className="nav-bar-span">Odhlásiť Sa</span>
               </a>
             </li>
           </ul>

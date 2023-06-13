@@ -24,11 +24,11 @@ function VillageList() {
 
   return (
     <div>
-      <ul className="flex flex-row flex-wrap p-0">
+      <ul className="flex flex-row flex-wrap p-0 mx-16">
         {villages
           ? villages.map((village) => (
               <li key={village.village_name} className="list-none w-1/4">
-                <div className="bg-[#060b26] rounded-2xl m-4 border-solid border-[#060b26] hover:border-white">
+                <div className="bg-[#060b26] rounded-2xl my-2 mx-5 border-solid border-[#060b26] hover:border-white">
                   <Link
                     className="flex flex-col items-center visited:text-transparent no-underline"
                     to={`${village.id}/${village.village_name}`}
@@ -39,13 +39,13 @@ function VillageList() {
                     </p>
                     <div className="bg-slate-50 rounded-2xl">
                       <img
-                        className="m-6"
+                        className="m-6 w-40"
                         alt="Obrazok obce"
                         src={village.erb_url}
                       />
                     </div>
                     <p className="text-slate-50 text-xl">
-                      Number of Hikes: {village.Hikes.length}
+                      Počet turistík: {village.Hikes.length}
                     </p>
                   </Link>
                 </div>
