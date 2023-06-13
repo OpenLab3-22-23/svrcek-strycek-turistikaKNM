@@ -21,17 +21,5 @@ export const SidebarData = [
         path: '/villages',
         icon: <MdIcons.MdHolidayVillage />,
         cName: 'nav-text'
-    },
-    {
-        title: 'Ski',
-        path: '/ski',
-        icon: <FaIcons.FaSkiing />,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Account',
-        path: '/account',
-        icon: <MdIcons.MdAccountBox />,
-        cName: 'nav-text'
-    },
+    }
 ]

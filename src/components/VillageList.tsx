@@ -30,7 +30,7 @@ function VillageList() {
               <li key={village.village_name} className="list-none w-1/4">
                 <div className="bg-[#060b26] rounded-2xl m-4 border-solid border-[#060b26] hover:border-white">
                   <Link
-                    className="flex flex-col items-center visited:text-transparent"
+                    className="flex flex-col items-center visited:text-transparent no-underline"
                     to={`${village.id}/${village.village_name}`}
                     state={{ erbUrl: village.erb_url, hikes: village.Hikes }}
                   >
