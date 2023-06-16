@@ -10,7 +10,7 @@ export default function VillageWithHikes() {
     <>
       <Navbar />
       <div>
-        <div className="my-10">
+        <div className="my-5">
           <div className="container flex flex-col justify-center bg-[#060b26] rounded-3xl py-10">
             <img src={state.erbUrl} alt="erb dediny" />
             <h2 className="text-6xl text-white mt-5">{villagename}</h2>

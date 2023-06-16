@@ -17,24 +17,26 @@ function Navbar() {
   const [sidebar, setSidebar] = useState(false);
 
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState('nieo');
+  const [currentUser, setCurrentUser] = useState("nieo");
 
   useEffect(() => {
     const fetchGPS = async () => {
-      const { data, error } = await supabase.from('profiles').select().eq('id', session.user.id);
+      const { data, error } = await supabase
+        .from("profiles")
+        .select()
+        .eq("id", session.user.id);
 
       if (error) {
-        navigate('/', { replace: true });
+        navigate("/", { replace: true });
       }
 
       if (data) {
         console.log(data[0].username);
         setCurrentUser(data[0].username);
       }
-
-    }
+    };
     fetchGPS();
-  }, [navigate])
+  }, [navigate]);
 
   function handleLogOut(e): void {
     e.preventDefault();
@@ -55,7 +57,9 @@ function Navbar() {
           </div>
           <div className="profile-container">
             <h2 className="userName">{currentUser}</h2>
-            <CgIcons.CgProfile className="profile-icon" />
+            <div className="icon-container">
+              <CgIcons.CgProfile className="profile-icon" />
+            </div>
           </div>
         </div>
         <nav className={sidebar ? "nav-menu" : "nav-menu-closed"}>
