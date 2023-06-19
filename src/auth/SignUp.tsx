@@ -39,7 +39,7 @@ export default function SignUp() {
         <input
           id="username"
           type="username"
-          placeholder="Username"
+          placeholder="Meno"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="input4"
@@ -47,7 +47,7 @@ export default function SignUp() {
         <input
           id="password"
           type="password"
-          placeholder="Password"
+          placeholder="Helso"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="input4"
@@ -56,7 +56,7 @@ export default function SignUp() {
             <span>Sign Up</span>
         </button>
         <p className="text">
-          Already have an account?{" "}
+          Už máte účet?{" "}
           <Link to="/login" className="text-Login">
             LogIn
           </Link>

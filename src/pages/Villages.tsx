@@ -1,7 +1,7 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
 import { useAuth } from '../auth/Auth';
-import Navbar from '../components/Navbar'
+import Navbar from '../components/Navbar';
+import VillageList from '../components/VillageList';
 
 function Villages() {
   const { session } = useAuth();
@@ -9,7 +9,7 @@ function Villages() {
     <>
       <Navbar />
       {session ? (
-        <h2>Villiges</h2>
+        <VillageList />
       ) : <Navigate to="/login" />}
     </>
   )

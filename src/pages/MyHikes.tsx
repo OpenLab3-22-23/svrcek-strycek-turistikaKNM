@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../auth/Auth';
+import { MyFavHikes } from '../components/MyFavHikes';
 import Navbar from '../components/Navbar'
 
 function MyHikes() {
   const { session } = useAuth();
+
   return (
     <>
       <Navbar />
       {session ? (
-        <h2>My hikes</h2>
+        <MyFavHikes/>
       ) : <Navigate to="/login" />}
     </>
   )

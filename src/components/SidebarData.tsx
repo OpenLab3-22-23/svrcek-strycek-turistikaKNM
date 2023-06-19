@@ -5,33 +5,21 @@ import * as MdIcons from "react-icons/md";
 
 export const SidebarData = [
     {
-        title: 'Home',
+        title: 'Domov',
         path: '/',
         icon: <AiIcons.AiFillHome />,
         cName: 'nav-text'
     },
     {
-        title: 'My Hikes',
+        title: 'Obľúbené',
         path: '/myhikes',
         icon: <FaIcons.FaHiking />,
         cName: 'nav-text'
     },
     {
-        title: 'Villages',
+        title: 'Dediny',
         path: '/villages',
         icon: <MdIcons.MdHolidayVillage />,
         cName: 'nav-text'
-    },
-    {
-        title: 'Ski',
-        path: '/ski',
-        icon: <FaIcons.FaSkiing />,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Account',
-        path: '/account',
-        icon: <MdIcons.MdAccountBox />,
-        cName: 'nav-text'
-    },
+    }
 ]

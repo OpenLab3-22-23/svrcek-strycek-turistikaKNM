@@ -1,45 +1,112 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../components/Navbar'
-import "./Home.css"
-import { supabase } from '../supabase/supabaseClient';
-import HikeCard from '../components/HikeCard';
+import { useEffect, useState } from "react";
+import { useAuth } from "../auth/Auth";
+import { HikeCard } from "../components/HikeCard";
+import Navbar from "../components/Navbar";
+import { supabase } from "../supabase/supabaseClient";
+import "./Home.css";
 
 function Home() {
+  const { session } = useAuth();
 
-  const [fetchError, setFetchError] = useState("")
-  const [hikes, setHikes] = useState([])
+  const [hikes, setHikes] = useState([]);
+  const [favHikes, setFavHikes] = useState([]);
+
+  const fetchHikes = async () => {
+    const { data, error } = await supabase.from("Hikes").select();
+    if (data) {
+      setHikes(data);
+    }
+  };
+
+  async function fetchFavHikes() {
+    const favHikes = await supabase
+      .from("profiles")
+      .select("saved_hikes")
+      .eq("id", session.user.id);
+
+    if (favHikes.data) {
+      setFavHikes(favHikes.data[0].saved_hikes);
+      console.log(favHikes.data[0]);
+    }
+  }
 
   useEffect(() => {
-    const fetchHikes = async () => {
-      const { data, error } = await supabase.from("Hikes").select();
-      if (error) {
-        setFetchError('Fetch Error')
-        setHikes([])
-        console.log(error)
-      }
+    fetchHikes();
+    fetchFavHikes();
+  }, []);
+
+  async function toggleHike(hikeId: number) {
+    if (!favHikes.includes(hikeId)) {
+      const { data, error } = await supabase
+        .from("profiles")
+        .update({ saved_hikes: [...favHikes, hikeId] })
+        .eq("id", session.user.id)
+        .select();
       if (data) {
-        setHikes(data)
-        setFetchError("")
+        setFavHikes(data[0].saved_hikes);
+        console.log(data);
+      } else if (error) {
+        console.log(error);
+      }
+    } else if (favHikes.includes(hikeId)) {
+      const filteredHikes = favHikes.filter(hike => hike != hikeId);
+      const { data, error } = await supabase
+        .from('profiles')
+        .update({ saved_hikes: filteredHikes })
+        .eq("id", session.user.id)
+        .select();
+      if (data) {
+        setFavHikes(data[0].saved_hikes);
+        console.log(data);
+      } else if (error) {
+        console.log(error);
       }
     }
-    fetchHikes()
-  }, [])
+  }
 
   return (
     <>
       <Navbar />
-      <div className='big-flexbox'>
-          {hikes && (
-              <div className='small-flexbox'>
-                {fetchError && (<p>{fetchError}</p>)}
-                {hikes.map(hike => (
-                  <HikeCard key={hike.id} hike={hike} />
-                ))}
-              </div>
-          )}
+      <div className="big-flexbox">
+        {hikes && (
+          <div className="small-flexbox">
+            {hikes.map((hike) =>
+              favHikes ? (
+                favHikes.find((favhike) => favhike === hike.id) ? (
+                  <HikeCard
+                    toggleFav={(hikeId) => toggleHike(hikeId)}
+                    isFav={true}
+                    key={hike.id}
+                    hikeName={hike.name}
+                    hikeAltitude={hike.altitude}
+                    hikeId={hike.id}
+                  />
+                ) : (
+                  <HikeCard
+                    toggleFav={(hikeId) => toggleHike(hikeId)}
+                    isFav={false}
+                    key={hike.id}
+                    hikeName={hike.name}
+                    hikeAltitude={hike.altitude}
+                    hikeId={hike.id}
+                  />
+                )
+              ) : (
+                <HikeCard
+                  toggleFav={(hikeId) => toggleHike(hikeId)}
+                  isFav={false}
+                  key={hike.id}
+                  hikeName={hike.name}
+                  hikeAltitude={hike.altitude}
+                  hikeId={hike.id}
+                />
+              )
+            )}
+          </div>
+        )}
       </div>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

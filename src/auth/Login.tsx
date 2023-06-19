@@ -38,7 +38,7 @@ export default function LogIn() {
           <input
             id="password"
             type="password"
-            placeholder="Password"
+            placeholder="Heslo"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="input2"
@@ -47,7 +47,7 @@ export default function LogIn() {
             <span>Login</span>
           </button>
           <p className="text">
-            Don't have an account?{" "}
+            Ešte nemáte účet?{" "}
             <Link to="/signup" className="text-SignUp">
               Sign Up
             </Link>
