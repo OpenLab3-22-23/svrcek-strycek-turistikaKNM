@@ -14,7 +14,6 @@ export default function Weather({ id }) {
         .select("village")
         .eq("id", id)
         .single();
-      console.log(data);
       if (error) {
         navigate("/", { replace: true });
       }
@@ -26,13 +25,13 @@ export default function Weather({ id }) {
           .single();
 
         if (VillageWeather) {
-          console.log(VillageWeather.data.village_name);
+          // console.log(VillageWeather.data.village_name);
           fetch(
             `https://api.openweathermap.org/data/2.5/forecast?q=${VillageWeather.data.village_name}&units=metric&appid=4ed9898ef0d4415dd8423a2a74b26ef8`
           )
             .then((response) => {
               if (!response.ok) {
-                console.log("error fetching weather")
+                console.log("error fetching weather");
               }
               return response.json();
             })
@@ -43,27 +42,41 @@ export default function Weather({ id }) {
     fetchGPS();
   }, [navigate]);
 
-  function stringCutter(str) {
-    str = str.substring(0, str.indexOf(" "));
-    return str;
+  function DayCalculator(date) {
+    var day = new Date(date);
+    switch (day.getDay()) {
+      case 0:
+        day = "Ne";
+        break;
+      case 1:
+        day = "Po";
+        break;
+      case 2:
+        day = "Ut";
+        break;
+      case 3:
+        day = "St";
+        break;
+      case 4:
+        day = "Št";
+        break;
+      case 5:
+        day = "Pi";
+        break;
+      case 6:
+        day = "So";
+    }
+    return day;
   }
 
   return (
     <>
       {data && (
-        <div className="allWeather">
-          <h4 className="weather">Počasie</h4>
-
-          <div className="today">
-            <div className="lines">
-              <h4 className="city">{data.city.name}</h4>
-              <div className="line">
-                {Math.round(data.list[0].wind.speed * 2) / 2 + " km/h"}
-              </div>
-              <div className="line">{data.list[0].weather[0].description}</div>
-            </div>
-            <div className="image">
+        <div className="mx-0 max-w-md p-8 mx-auto rounded-lg bg-[#060b26] dark:text-gray-100">
+          <div className="flex justify-between space-x-8">
+            <div className="flex flex-col items-center">
               <img
+                className="w-24 h-24"
                 src={
                   "https://openweathermap.org/img/wn/" +
                   data.list[0].weather[0].icon +
@@ -71,58 +84,78 @@ export default function Weather({ id }) {
                 }
                 alt=""
               />
+              <h1 className="text-3xl font-semibold">{data.city.name}</h1>
             </div>
-            <div className="temp">
-              <div>{Math.round(data.list[0].main.temp * 2) / 2 + "°C"}</div>
+            <div className="flex flex-col">
+              <span className="font-bold text-8xl">
+                {Math.round(data.list[0].main.temp) + "°C"}
+              </span>
+              <span className="font-bold text-xl mt-7">
+                {data.list[0].weather[0].main}
+              </span>
             </div>
           </div>
-          <div className="box">
-            <h4>{stringCutter(data.list[7].dt_txt)}</h4>
-            <img
-              src={`https://openweathermap.org/img/wn/${data.list[7].weather[0].icon}.png`}
-              alt="Ikona pocasia"
-              className="icon_1"
-              id="icon_days"
-            />
-            <h4 className="temp_1" id="temp">
-              {Math.round(data.list[7].main.temp * 2) / 2 + "°C"}
-            </h4>
-          </div>
-          <div className="box">
-            <h4>{stringCutter(data.list[15].dt_txt)}</h4>
-            <img
-              src={`https://openweathermap.org/img/wn/${data.list[15].weather[0].icon}.png`}
-              alt="Ikona pocasia"
-              className="icon_2"
-              id="icon_days"
-            />
-            <h4 className="temp_2" id="temp">
-              {Math.round(data.list[15].main.temp * 2) / 2 + "°C"}
-            </h4>
-          </div>
-          <div className="box">
-            <h4>{stringCutter(data.list[23].dt_txt)}</h4>
-            <img
-              src={`https://openweathermap.org/img/wn/${data.list[23].weather[0].icon}.png`}
-              alt="Ikona pocasia"
-              className="icon_3"
-              id="icon_days"
-            />
-            <h4 className="temp_3" id="temp">
-              {Math.round(data.list[23].main.temp * 2) / 2 + "°C"}
-            </h4>
-          </div>
-          <div className="box" id="lastBox">
-            <h4>{stringCutter(data.list[31].dt_txt)}</h4>
-            <img
-              src={`https://openweathermap.org/img/wn/${data.list[31].weather[0].icon}.png`}
-              alt="Ikona pocasia"
-              className="icon_4"
-              id="icon_days"
-            />
-            <h4 className="temp_4" id="temp">
-              {Math.round(data.list[31].main.temp * 2) / 2 + "°C"}
-            </h4>
+          <div className="flex justify-between mt-8 space-x-4 dark:text-gray-400">
+            <div className="flex flex-col items-center space-y-1">
+              <span className="uppercase">
+                {DayCalculator(data.list[7].dt_txt)}
+              </span>
+              <img
+                src={`https://openweathermap.org/img/wn/${data.list[7].weather[0].icon}.png`}
+                alt="Ikona pocasia"
+                className="icon_1"
+                id="icon_days"
+              />
+              <span>{Math.round(data.list[7].main.temp) + "°C"}</span>
+            </div>
+            <div className="flex flex-col items-center space-y-1">
+              <span className="uppercase">
+                {DayCalculator(data.list[15].dt_txt)}
+              </span>
+              <img
+                src={`https://openweathermap.org/img/wn/${data.list[15].weather[0].icon}.png`}
+                alt="Ikona pocasia"
+                className="icon_2"
+                id="icon_days"
+              />
+              <span>{Math.round(data.list[15].main.temp) + "°C"}</span>
+            </div>
+            <div className="flex flex-col items-center space-y-1">
+              <span className="uppercase">
+                {DayCalculator(data.list[23].dt_txt)}
+              </span>
+              <img
+                src={`https://openweathermap.org/img/wn/${data.list[23].weather[0].icon}.png`}
+                alt="Ikona pocasia"
+                className="icon_2"
+                id="icon_days"
+              />
+              <span>{Math.round(data.list[23].main.temp) + "°C"}</span>
+            </div>
+            <div className="flex flex-col items-center space-y-1">
+              <span className="uppercase">
+                {DayCalculator(data.list[31].dt_txt)}
+              </span>
+              <img
+                src={`https://openweathermap.org/img/wn/${data.list[31].weather[0].icon}.png`}
+                alt="Ikona pocasia"
+                className="icon_2"
+                id="icon_days"
+              />
+              <span>{Math.round(data.list[31].main.temp) + "°C"}</span>
+            </div>
+            <div className="flex flex-col items-center space-y-1">
+              <span className="uppercase">
+                {DayCalculator(data.list[39].dt_txt)}
+              </span>
+              <img
+                src={`https://openweathermap.org/img/wn/${data.list[39].weather[0].icon}.png`}
+                alt="Ikona pocasia"
+                className="icon_2"
+                id="icon_days"
+              />
+              <span>{Math.round(data.list[39].main.temp) + "°C"}</span>
+            </div>
           </div>
         </div>
       )}

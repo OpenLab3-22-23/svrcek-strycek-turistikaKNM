@@ -31,7 +31,7 @@ function Navbar() {
       }
 
       if (data) {
-        console.log(data[0].username);
+        // console.log(data[0].username);
         setCurrentUser(data[0].username);
       }
     };
@@ -80,7 +80,7 @@ function Navbar() {
             <li className="nav-text">
               <a onClick={handleLogOut}>
                 <MdIcons.MdLogout />
-                <span className="nav-bar-span">Odhlásiť Sa</span>
+                <span className="nav-bar-span">Odhlásiť sa</span>
               </a>
             </li>
           </ul>

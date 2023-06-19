@@ -1,7 +1,6 @@
 import { Link, useLocation, useParams } from "react-router-dom";
 import * as MdIcons from "react-icons/md";
 import Navbar from "../components/Navbar";
-
 export default function VillageWithHikes() {
   const { id, villagename } = useParams();
   const { state } = useLocation();
@@ -10,10 +9,18 @@ export default function VillageWithHikes() {
     <>
       <Navbar />
       <div>
-        <div className="my-5">
+        <div className="my-5 flex justify-center">
           <div className="container flex flex-col justify-center bg-[#060b26] rounded-3xl py-10">
-            <img src={state.erbUrl} alt="erb dediny" />
-            <h2 className="text-6xl text-white mt-5">{villagename}</h2>
+            <div className="flex justify-center">
+              <img
+                className="w-64"
+                src={state.erbUrl}
+                alt="erb dediny"
+              />
+            </div>
+            <h2 className="text-6xl text-white mt-5 text-center">
+              {villagename}
+            </h2>
           </div>
         </div>
         <div className="container flex justify-center mx-auto">
